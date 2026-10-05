@@ -791,6 +791,64 @@ footer {
   box-shadow:0 8px 30px #0003;white-space:pre-wrap; }
 #deleteDialog { border:0;border-radius:20px;padding:28px;max-width:90vw;margin:auto;color:var(--text); }
 #deleteDialog::backdrop {background:#17233b66;}
+
+/* 관리자 화면: 밀도와 가독성을 함께 조정 */
+#adminModal .modal-box { padding:20px 22px; border-radius:20px; }
+#adminModal .modal-header { margin-bottom:12px; gap:10px; }
+#adminModal .modal-title { font-size:20px; }
+#adminModal .admin-tabs { margin-bottom:14px; gap:2px; }
+#adminModal .admin-tab { padding:10px 12px; white-space:nowrap; }
+#adminModal .admin-toolbar { margin-bottom:10px; gap:10px; }
+#adminModal .button { min-height:36px; padding:8px 12px; border-radius:9px; font-size:13px; }
+#adminModal .field { margin:0; min-width:0; }
+#adminModal .field label { margin-bottom:4px; color:#596477; font-size:12px; font-weight:700; }
+#adminModal .field input, #adminModal .field textarea, #adminModal .field select {
+  min-height:36px; padding:8px 10px; border-radius:8px; font-size:13px; line-height:1.4;
+}
+#adminModal .field textarea { min-height:36px; }
+#adminModal .field input:focus, #adminModal .field textarea:focus, #adminModal .field select:focus {
+  border-color:var(--blue); box-shadow:0 0 0 3px #3267eb15;
+}
+#adminNoticeList { border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+.admin-notice-row { display:flex; align-items:center; gap:10px; padding:7px 12px; min-height:48px; background:#fff; }
+.admin-notice-row + .admin-notice-row { border-top:1px solid #edf0f5; }
+.admin-notice-row:nth-child(even) { background:#f8faff; }
+.admin-notice-title { flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:14px; font-weight:650; color:var(--text); }
+.admin-row-actions { display:flex; gap:5px; flex-shrink:0; }
+.admin-icon-button { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0;
+  width:36px; height:36px; padding:0; border:1px solid #e3e9f3; border-radius:9px;
+  color:#4263a0; background:#edf3ff; cursor:pointer; }
+.admin-icon-button:hover { background:#dfeaff; }
+.admin-icon-button:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+.admin-icon-button.delete-action { color:#cc3a45; border-color:#ffe2e5; background:#fff1f3; }
+.admin-icon-button.delete-action:hover { background:#ffe2e7; }
+.admin-icon-button.save-action { color:var(--blue); }
+.admin-empty { margin:0; padding:18px; color:var(--muted); font-size:13px; }
+.admin-link-card { border:1px solid var(--border); border-radius:12px; background:#f8faff; padding:12px 14px; margin-bottom:10px; }
+.admin-link-header { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+.admin-link-header strong { font-size:14px; overflow-wrap:anywhere; }
+.admin-link-grid, .admin-settings-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px 14px; }
+.admin-settings-form { padding:14px; border:1px solid var(--border); border-radius:12px; background:#f8faff; }
+.admin-settings-grid .wide { grid-column:1 / -1; }
+#adminModal #settingHeroDescription { min-height:55px; }
+.admin-settings-actions { display:flex; justify-content:flex-end; margin-top:12px; }
+.admin-password-row { display:flex; align-items:flex-end; gap:10px; padding:12px 14px; margin-top:12px; border:1px solid var(--border); border-radius:12px; }
+.admin-password-row .field { flex:1; }
+.admin-password-row .button { flex-shrink:0; }
+@media(max-width:560px) {
+  #adminModal { padding:10px; }
+  #adminModal .modal-box { padding:16px 12px; max-height:94vh; }
+  #adminModal .modal-title { font-size:18px; }
+  #adminModal .admin-tab { padding:9px 8px; font-size:12px; }
+  .admin-notice-row { padding:6px 8px; gap:6px; }
+  .admin-notice-title { font-size:13px; }
+  .admin-link-grid, .admin-settings-grid { grid-template-columns:minmax(0,1fr); gap:9px; }
+  .admin-settings-grid .wide { grid-column:auto; }
+  .admin-password-row { flex-wrap:wrap; }
+  .admin-password-row .field { flex-basis:100%; }
+  .admin-password-row .button { margin-left:auto; }
+}
+
 </style>
 </head>
 <body>
@@ -1077,80 +1135,23 @@ footer {
       ></div>
     </div>
     <!-- SETTINGS -->
-    <div
-      class="admin-panel"
-      id="admin-settings"
-    >
-      <form
-        onsubmit="saveSiteSettings(event)"
-      >
-        <div class="field">
-          <label>앱 이름</label>
-          <input
-            id="settingAppName"
-          >
+    <div class="admin-panel" id="admin-settings">
+      <form onsubmit="saveSiteSettings(event)" class="admin-settings-form">
+        <div class="admin-settings-grid">
+          <div class="field"><label for="settingAppName">앱 이름</label><input id="settingAppName"></div>
+          <div class="field"><label for="settingSchoolName">학교명</label><input id="settingSchoolName"></div>
+          <div class="field"><label for="settingTeacherName">교사 이름</label><input id="settingTeacherName"></div>
+          <div class="field"><label for="settingWebsite">홈페이지</label><input id="settingWebsite" placeholder="https://…"></div>
+          <div class="field wide"><label for="settingHeroDescription">첫 화면 설명</label><textarea id="settingHeroDescription" rows="2"></textarea></div>
+          <div class="field wide"><label for="settingProfileImage">프로필 이미지 URL</label><input id="settingProfileImage" placeholder="https://…"></div>
+          <div class="field wide"><label for="settingKeyWord">키워드</label><textarea id="settingKeyWord" rows="1" placeholder="스마트교육,AI·디지털교육,수업지원"></textarea></div>
         </div>
-        <div class="field">
-          <label>교사 이름</label>
-          <input
-            id="settingTeacherName"
-          >
-        </div>
-        <div class="field">
-          <label>학교명</label>
-          <input
-            id="settingSchoolName"
-          >
-        </div>
-        <div class="field">
-          <label>첫 화면 설명</label>
-          <textarea
-            id="settingHeroDescription"
-          ></textarea>
-        </div>
-        <div class="field">
-          <label>프로필 이미지 URL</label>
-          <input
-            id="settingProfileImage"
-          >
-        </div>
-        <div class="field">
-          <label>홈페이지</label>
-          <input
-            id="settingWebsite"
-          >
-        </div>
-        <div class="field">
-          <label>키워드</label>
-          <textarea
-            id="settingKeyWord"
-            placeholder="스마트교육,AI·디지털교육,수업지원"
-          ></textarea>
-        </div>
-        <button
-          class="button"
-          type="submit"
-        >
-          사이트 설정 저장
-        </button>
+        <div class="admin-settings-actions"><button class="button" type="submit">사이트 설정 저장</button></div>
       </form>
-      <hr>
-      <div class="field">
-        <label>
-          새 관리자 비밀번호
-        </label>
-        <input
-          type="password"
-          id="newAdminPassword"
-        >
-      </div>
-      <button
-        class="button secondary"
-        onclick="changePassword()"
-        type="button"
-      >
-        비밀번호 변경
-      </button>
+      <form class="admin-password-row" onsubmit="event.preventDefault();changePassword()">
+        <div class="field"><label for="newAdminPassword">새 관리자 비밀번호</label><input type="password" id="newAdminPassword" autocomplete="new-password"></div>
+        <button class="button secondary" type="submit">비밀번호 변경</button>
+      </form>
     </div>
   </div>
 </div>
@@ -1945,60 +1946,47 @@ function loadAdminData() {
 /* ======================================================
    NOTICE ADMIN
 ====================================================== */
+function adminIcon(name) {
+  const paths = {
+    edit: '<path d="m16 3 5 5-12 12-6 1 1-6Z"/><path d="m14 5 5 5"/>',
+    delete: '<path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/>',
+    save: '<path d="M5 3h12l4 4v14H3V3Z"/><path d="M7 3v6h10V3M7 21v-8h10v8"/>'
+  };
+  return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+paths[name]+'</svg>';
+}
 function renderAdminNotices() {
-  const box =
-    document.getElementById(
-      'adminNoticeList'
-    );
-  box.innerHTML =
-    '';
-  const notices =
-    adminData.notices ||
-    [];
-  notices.forEach(
-    notice => {
-      const div =
-        document.createElement(
-          'div'
-        );
-      div.className =
-        'admin-card';
-      div.innerHTML = `
-        <div class="admin-card-title">
-          ${escapeHtml(
-            notice.title || ''
-          )}
-        </div>
-        <div
-          style="
-            margin-bottom:14px;
-            color:#667085;
-          "
-        >
-          ${escapeHtml(
-            notice.content || ''
-          )}
-        </div>
-        <button
-          class="button secondary"
-          onclick="editNotice('${notice.id}')"
-          type="button"
-        >
-          수정
-        </button>
-        <button
-          class="button danger"
-          onclick="removeNotice('${notice.id}')"
-          type="button"
-        >
-          삭제
-        </button>
-      `;
-      box.appendChild(
-        div
-      );
-    }
-  );
+  const box = document.getElementById('adminNoticeList');
+  box.replaceChildren();
+  const notices = adminData.notices || [];
+  if (!notices.length) {
+    const empty = document.createElement('p');
+    empty.className = 'admin-empty';
+    empty.textContent = '등록된 공지사항이 없습니다.';
+    box.appendChild(empty);
+    return;
+  }
+  notices.forEach(notice => {
+    const row = document.createElement('div');
+    row.className = 'admin-notice-row';
+    const title = document.createElement('div');
+    title.className = 'admin-notice-title';
+    title.textContent = notice.title || '제목 없음';
+    title.title = notice.title || '제목 없음';
+    const actions = document.createElement('div');
+    actions.className = 'admin-row-actions';
+    [['edit','수정',()=>editNotice(notice.id)],['delete','삭제',()=>removeNotice(notice.id)]].forEach(([icon,label,handler]) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'admin-icon-button ' + (icon === 'delete' ? 'delete-action' : '');
+      button.title = label;
+      button.setAttribute('aria-label',(notice.title || '공지사항') + ' ' + label);
+      button.innerHTML = adminIcon(icon);
+      button.addEventListener('click',handler);
+      actions.appendChild(button);
+    });
+    row.append(title,actions);
+    box.appendChild(row);
+  });
 }
 function openNoticeEditor() {
   setValue(
@@ -2193,98 +2181,36 @@ async function removeNotice(id) {
    MENU ADMIN
 ====================================================== */
 function renderAdminMenus() {
-  const box =
-    document.getElementById(
-      'adminMenuList'
-    );
-  box.innerHTML =
-    '';
-  (
-    adminData.menus ||
-    []
-  )
-  .forEach(
-    menu => {
-      const div =
-        document.createElement(
-          'div'
-        );
-      div.className =
-        'admin-card';
-      div.innerHTML = `
-        <div class="admin-card-title">
-          ${escapeHtml(
-            menu.title || ''
-          )}
-        </div>
-        <div class="field">
-          <label>메뉴명</label>
-          <input
-            id="title_${menu.id}"
-            value="${escapeAttr(
-              menu.title || ''
-            )}"
-          >
-        </div>
-        <div class="field">
-          <label>설명</label>
-          <textarea
-            id="description_${menu.id}"
-          >${escapeHtml(
-            menu.description || ''
-          )}</textarea>
-        </div>
-        <div class="field">
-          <label>수업 링크</label>
-          <input
-            id="url_${menu.id}"
-            value="${escapeAttr(
-              menu.linkUrl || ''
-            )}"
-          >
-        </div>
-        <div class="field">
-          <label>링크 열기</label>
-          <select
-            id="open_${menu.id}"
-          >
-            <option
-              value="new"
-              ${
-                menu.openType !==
-                'same'
-                ? 'selected'
-                : ''
-              }
-            >
-              새 창
-            </option>
-            <option
-              value="same"
-              ${
-                menu.openType ===
-                'same'
-                ? 'selected'
-                : ''
-              }
-            >
-              현재 창
-            </option>
-          </select>
-        </div>
-        <button
-          class="button"
-          onclick="saveMenuFromAdmin('${menu.id}')"
-          type="button"
-        >
-          저장
-        </button>
-      `;
-      box.appendChild(
-        div
-      );
-    }
-  );
+  const box = document.getElementById('adminMenuList');
+  box.replaceChildren();
+  (adminData.menus || []).forEach(menu => {
+    const id = escapeAttr(menu.id);
+    const card = document.createElement('form');
+    card.className = 'admin-link-card';
+    card.innerHTML = `
+      <div class="admin-link-header">
+        <strong>${escapeHtml(menu.title || '수업 링크')}</strong>
+        <button class="admin-icon-button save-action" type="submit" title="저장" aria-label="${escapeAttr(menu.title || '수업 링크')} 저장">${adminIcon('save')}</button>
+      </div>
+      <div class="admin-link-grid">
+        <div class="field"><label for="title_${id}">메뉴명</label>
+          <input id="title_${id}" value="${escapeAttr(menu.title || '')}" required></div>
+        <div class="field"><label for="open_${id}">링크 열기</label>
+          <select id="open_${id}">
+            <option value="new" ${menu.openType !== 'same' ? 'selected' : ''}>새 창</option>
+            <option value="same" ${menu.openType === 'same' ? 'selected' : ''}>현재 창</option>
+          </select></div>
+        <div class="field"><label for="description_${id}">설명</label>
+          <textarea id="description_${id}" rows="1">${escapeHtml(menu.description || '')}</textarea></div>
+        <div class="field"><label for="url_${id}">수업 링크</label>
+          <input id="url_${id}" value="${escapeAttr(menu.linkUrl || '')}" placeholder="https://…"></div>
+      </div>`;
+    card.addEventListener('submit',event => {
+      event.preventDefault();
+      saveMenuFromAdmin(menu.id);
+    });
+    box.appendChild(card);
+  });
 }
 function saveMenuFromAdmin(
   id
