@@ -849,6 +849,27 @@ footer {
   .admin-password-row .button { margin-left:auto; }
 }
 
+
+.notice-visibility { display:inline-flex; align-items:center; gap:6px; flex-shrink:0; position:relative; cursor:pointer; padding:6px 0; min-height:36px; }
+.notice-visibility input { position:absolute; opacity:0; width:1px; height:1px; }
+.visibility-track { width:34px; height:20px; border-radius:99px; background:#a5afbf; position:relative; transition:background .15s; }
+.visibility-track::after { content:''; position:absolute; top:3px; left:3px; width:14px; height:14px; background:#fff; border-radius:50%; box-shadow:0 1px 3px #0002; transition:transform .15s; }
+.notice-visibility input:checked + .visibility-track { background:#15915d; }
+.notice-visibility input:checked + .visibility-track::after { transform:translateX(14px); }
+.notice-visibility input:focus-visible + .visibility-track { outline:2px solid var(--blue); outline-offset:3px; }
+.notice-visibility input:disabled ~ span { opacity:.55; }
+.visibility-status { min-width:24px; font-size:11px; font-weight:700; color:#788399; }
+.notice-visibility input:checked ~ .visibility-status { color:#137a51; }
+#adminModal button:disabled { cursor:wait; opacity:.6; }
+@media(max-width:560px) {
+ .notice-visibility { gap:4px; }
+ .visibility-track { width:30px; height:18px; }
+ .visibility-track::after { width:12px; height:12px; }
+ .notice-visibility input:checked + .visibility-track::after { transform:translateX(12px); }
+ .admin-row-actions { gap:3px; }
+ .admin-icon-button { width:32px; height:34px; }
+}
+
 </style>
 </head>
 <body>
@@ -1373,12 +1394,13 @@ function gasRun(success, failure) {
   }});
 }
 let toastTimer;
-function showToast(message) {
+function showToast(message, persistent = false) {
   const toast = document.getElementById('siteToast');
   toast.textContent = String(message || '');
   toast.hidden = false;
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { toast.hidden = true; }, 6500);
+  toast.dataset.busy = persistent ? 'true' : 'false';
+  if (!persistent) toastTimer = setTimeout(() => { toast.hidden = true; }, 4000);
 }
 function askDelete(message) {
   return new Promise(resolve => {
@@ -1604,7 +1626,7 @@ function saveKeywords() {
       )
       .value
       .trim();
-  showLoading(true);
+  showLoading(true, '저장 중…');
   gasRun()
     .withSuccessHandler(
       () => {
@@ -1856,7 +1878,7 @@ function loginAdmin(
         'adminPassword'
       )
       .value;
-  showLoading(true);
+  showLoading(true, '로그인 중…');
   gasRun()
     .withSuccessHandler(
       result => {
@@ -1895,7 +1917,7 @@ function loginAdmin(
     );
 }
 function loadAdminData() {
-  showLoading(true);
+  showLoading(true, '불러오는 중…');
   gasRun()
     .withSuccessHandler(
       data => {
@@ -1984,9 +2006,47 @@ function renderAdminNotices() {
       button.addEventListener('click',handler);
       actions.appendChild(button);
     });
-    row.append(title,actions);
+    const visibility = document.createElement('label');
+    visibility.className = 'notice-visibility';
+    const toggle = document.createElement('input');
+    toggle.type = 'checkbox';
+    toggle.setAttribute('role','switch');
+    toggle.checked = isTrue(notice.visible);
+    toggle.setAttribute('aria-label',(notice.title || '공지사항') + ' 보이기');
+    const track = document.createElement('span');
+    track.className = 'visibility-track';
+    track.setAttribute('aria-hidden','true');
+    const status = document.createElement('span');
+    status.className = 'visibility-status';
+    status.textContent = toggle.checked ? '켜짐' : '꺼짐';
+    toggle.addEventListener('change',() => toggleNoticeVisibility(notice.id,toggle));
+    visibility.append(toggle,track,status);
+    visibility.title = toggle.checked ? '학생 화면에 표시 중 · 클릭하여 숨기기' : '학생 화면에서 숨김 · 클릭하여 보이기';
+    row.append(title,visibility,actions);
     box.appendChild(row);
   });
+}
+function toggleNoticeVisibility(id, control) {
+  const original = (adminData.notices || []).find(notice => notice.id === id);
+  if (!original) return;
+  if (uiBusy) { control.checked = isTrue(original.visible); return; }
+  const visible = control.checked;
+  const notice = Object.assign({}, original, {visible});
+  showLoading(true, '저장 중…');
+  gasRun()
+    .withSuccessHandler(() => {
+      original.visible = visible;
+      publicData.notices = (adminData.notices || []).filter(item => isTrue(item.visible));
+      showLoading(false);
+      renderAdminNotices();
+      renderNotices(publicData.notices);
+      showToast(visible ? '공지사항을 표시했습니다.' : '공지사항을 숨겼습니다.');
+    })
+    .withFailureHandler(error => {
+      control.checked = isTrue(original.visible);
+      showError(error);
+    })
+    .saveNotice(adminToken, notice);
 }
 function openNoticeEditor() {
   setValue(
@@ -2144,7 +2204,7 @@ function saveNoticeForm(
         'noticeCreatedAt'
       )
   };
-  showLoading(true);
+  showLoading(true, '저장 중…');
   gasRun()
     .withSuccessHandler(
       () => {
@@ -2164,7 +2224,7 @@ function saveNoticeForm(
 }
 async function removeNotice(id) {
   if (!await askDelete('공지사항을 삭제하시겠습니까?')) return;
-  showLoading(true);
+  showLoading(true, '저장 중…');
   gasRun()
     .withSuccessHandler(
       refreshAll
@@ -2260,7 +2320,7 @@ function saveMenuFromAdmin(
     visible:
       original.visible
   };
-  showLoading(true);
+  showLoading(true, '저장 중…');
   gasRun()
     .withSuccessHandler(
       refreshAll
@@ -2343,7 +2403,7 @@ function saveSiteSettings(
         'settingKeyWord'
       )
   };
-  showLoading(true);
+  showLoading(true, '저장 중…');
   gasRun()
     .withSuccessHandler(
       refreshAll
@@ -2372,7 +2432,7 @@ function changePassword() {
     );
     return;
   }
-  showLoading(true);
+  showLoading(true, '변경 중…');
   gasRun()
     .withSuccessHandler(
       result => {
@@ -2557,17 +2617,41 @@ function closeModal(
     .classList
     .remove('show');
 }
-function showLoading(
-  show
-) {
-  document
-    .getElementById(
-      'loading'
-    )
-    .style.display =
-      show
-      ? 'flex'
-      : 'none';
+let firstLoadFinished = false;
+let uiBusy = false;
+const previousDisabled = new Map();
+// 처리 중 Enter 키를 연속으로 눌러도 같은 요청을 다시 제출하지 않습니다.
+document.addEventListener('submit', event => {
+  if (uiBusy) { event.preventDefault(); event.stopImmediatePropagation(); }
+}, true);
+function showLoading(show, message = '처리 중…') {
+  const loading = document.getElementById('loading');
+  const toast = document.getElementById('siteToast');
+  if (show) {
+    uiBusy = true;
+    document.querySelectorAll('.modal input, .modal textarea, .modal select, .modal button:not(.close-button):not(.admin-tab)')
+      .forEach(control => {
+        if (!previousDisabled.has(control)) previousDisabled.set(control,control.disabled);
+        control.disabled = true;
+      });
+    if (!firstLoadFinished) {
+      loading.style.display = 'flex';
+    } else {
+      loading.style.display = 'none';
+      showToast(message, true);
+    }
+  } else {
+    firstLoadFinished = true;
+    uiBusy = false;
+    loading.style.display = 'none';
+    previousDisabled.forEach((disabled,control) => { control.disabled = disabled; });
+    previousDisabled.clear();
+    if (toast.dataset.busy === 'true') {
+      clearTimeout(toastTimer);
+      toast.hidden = true;
+      toast.dataset.busy = 'false';
+    }
+  }
 }
 function showError(
   error
