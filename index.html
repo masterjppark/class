@@ -1,0 +1,2740 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>YULPO CLASS</title>
+<style>
+:root {
+  --blue: #3267eb;
+  --blue-dark: #2452c5;
+  --green: #15915d;
+  --text: #17233b;
+  --muted: #667085;
+  --border: #e1e7ef;
+  --danger: #d93025;
+  --shadow:
+    0 16px 45px rgba(35,63,105,.09);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family:
+    Pretendard,
+    "Noto Sans KR",
+    Arial,
+    sans-serif;
+  color: var(--text);
+  background:
+    linear-gradient(
+      180deg,
+      #f2f7ff 0,
+      #ffffff 470px
+    );
+}
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+button {
+  cursor: pointer;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.main {
+  flex: 1;
+}
+/* ======================================================
+   LOADING
+====================================================== */
+#loading {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background:
+    rgba(255,255,255,.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  font-weight: 800;
+}
+/* ======================================================
+   HERO
+====================================================== */
+.hero {
+  width:
+    min(
+      1350px,
+      calc(100% - 40px)
+    );
+  margin: 0 auto;
+  padding:
+    52px 0
+    22px;
+  display: grid;
+  grid-template-columns:
+    1.15fr
+    .75fr
+    .9fr;
+  gap: 28px;
+  align-items: center;
+}
+.eyebrow {
+  margin-bottom: 19px;
+  color: var(--blue);
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.main-title {
+  margin: 0;
+  font-size: 31px;
+  line-height: 1.35;
+  letter-spacing: -1px;
+  font-weight: 900;
+}
+.hero-description {
+  margin-top: 18px;
+  color: #596477;
+  font-size: 18px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+/* ======================================================
+   KEYWORDS
+====================================================== */
+.keyword-area {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.tag {
+  padding:
+    8px 14px;
+  border-radius: 999px;
+  background:
+    #e8f0ff;
+  color:
+    #2458bd;
+  font-size: 13px;
+  font-weight: 800;
+}
+.keyword-edit-button {
+  display: none;
+  width: 31px;
+  height: 31px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  border:
+    1px solid #d7e0ed;
+  border-radius: 50%;
+  background: white;
+  font-size: 14px;
+  transition: .18s;
+}
+.keyword-edit-button:hover {
+  background: #eef4ff;
+  border-color: #b9cdf9;
+  transform:
+    translateY(-1px);
+}
+/* ======================================================
+   PROFILE
+====================================================== */
+.profile-area {
+  position: relative;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-bg {
+  position: absolute;
+  width: 310px;
+  height: 310px;
+  border-radius: 50%;
+  background: #e3edff;
+}
+.profile-image {
+  position: relative;
+  z-index: 2;
+  width: 290px;
+  height: 290px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border:
+    8px solid
+    rgba(255,255,255,.9);
+  box-shadow: var(--shadow);
+}
+.profile-placeholder {
+  position: relative;
+  z-index: 2;
+  width: 290px;
+  height: 290px;
+  border-radius: 50%;
+  background: #e3edff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border:
+    8px solid white;
+  font-size: 95px;
+}
+.quote {
+  position: absolute;
+  z-index: 4;
+  left: -65px;
+  bottom: 26px;
+  color: #26314a;
+  font-size: 18px;
+  line-height: 1.65;
+  font-style: italic;
+  transform:
+    rotate(-4deg);
+  white-space: pre-line;
+}
+/* ======================================================
+   SCHOOL
+====================================================== */
+.school-side {
+  position: relative;
+  min-height: 330px;
+  overflow: hidden;
+  border-radius: 32px;
+  background:
+    linear-gradient(
+      135deg,
+      #e7f2ff,
+      #fbfdff
+    );
+}
+.school-side::before {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  right: -65px;
+  bottom: -70px;
+  border-radius: 50%;
+  background:
+    rgba(77,145,230,.11);
+}
+.school-side::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  left: -45px;
+  bottom: -45px;
+  border-radius: 50%;
+  background:
+    rgba(45,103,235,.07);
+}
+.school-slogan-wrap {
+  position: absolute;
+  z-index: 3;
+  top: 72px;
+  left: 72px;
+  max-width: 260px;
+}
+.school-slogan-label {
+  margin-bottom: 10px;
+  color: #7a9fd6;
+  font-size: 12px;
+  font-weight: 700;
+}
+.school-slogan {
+  color: #355f9a;
+  font-size: 24px;
+  line-height: 1.55;
+  font-weight: 900;
+  letter-spacing: -.8px;
+}
+.school-name {
+  position: absolute;
+  z-index: 3;
+  bottom: 34px;
+  right: 32px;
+  color: #568cc9;
+  font-size: 25px;
+  font-weight: 900;
+}
+/* ======================================================
+   NOTICE
+====================================================== */
+.notice-section {
+  width:
+    min(
+      1350px,
+      calc(100% - 40px)
+    );
+  margin:
+    18px auto
+    35px;
+}
+.notice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+.notice-heading {
+  font-size: 27px;
+  font-weight: 900;
+}
+.notice-caption {
+  color: #8995a9;
+  font-size: 13px;
+}
+.notice-list {
+  display: grid;
+  gap: 11px;
+}
+.notice-card {
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    54px
+    1fr
+    auto;
+  align-items: center;
+  gap: 18px;
+  padding:
+    19px 22px;
+  border:
+    1px solid #cbdcff;
+  border-radius: 19px;
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #f8fbff
+    );
+  box-shadow:
+    0 8px 25px
+    rgba(50,80,125,.05);
+}
+.notice-card.link {
+  cursor: pointer;
+}
+.notice-card.link:hover {
+  transform:
+    translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.notice-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background:
+    linear-gradient(
+      135deg,
+      #ff8066,
+      #ff6048
+    );
+  color: white;
+  font-size: 23px;
+}
+.notice-title {
+  font-size: 17px;
+  font-weight: 900;
+}
+.notice-content {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.notice-new {
+  align-self: flex-start;
+  padding:
+    5px 9px;
+  border-radius: 999px;
+  background: #fff0ec;
+  color: #ff4b34;
+  font-size: 10px;
+  font-weight: 900;
+}
+/* ======================================================
+   GRADE
+====================================================== */
+.grade-section {
+  width:
+    min(
+      1350px,
+      calc(100% - 40px)
+    );
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0,1fr)
+    );
+  gap: 30px;
+}
+.grade-card {
+  min-height: 235px;
+  display: grid;
+  grid-template-columns:
+    160px
+    1fr
+    65px;
+  align-items: center;
+  gap: 26px;
+  padding:
+    36px 38px;
+  border-radius: 28px;
+  cursor: pointer;
+  transition: .22s;
+  box-shadow: var(--shadow);
+}
+.grade-card:hover {
+  transform:
+    translateY(-5px);
+}
+.blue-card {
+  background:
+    linear-gradient(
+      135deg,
+      #edf3ff,
+      #ffffff
+    );
+  border:
+    1px solid #c0d5ff;
+}
+.green-card {
+  background:
+    linear-gradient(
+      135deg,
+      #edf9f3,
+      #ffffff
+    );
+  border:
+    1px solid #bfe4d2;
+}
+.grade-icon {
+  width: 145px;
+  height: 145px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 74px;
+}
+.blue-card .grade-icon {
+  background: #dae7ff;
+}
+.green-card .grade-icon {
+  background: #daf1e5;
+}
+.grade-eng {
+  margin-bottom: 11px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+.blue-card .grade-eng {
+  color: #526ba7;
+}
+.green-card .grade-eng {
+  color: #25855b;
+}
+.grade-title {
+  margin-bottom: 12px;
+  font-size: 37px;
+  font-weight: 900;
+}
+.grade-desc {
+  color: #596477;
+  font-size: 18px;
+  line-height: 1.65;
+}
+.arrow {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 34px;
+}
+.blue-card .arrow {
+  background: var(--blue);
+}
+.green-card .arrow {
+  background: var(--green);
+}
+/* ======================================================
+   MESSAGE
+====================================================== */
+.message-area {
+  padding:
+    43px 20px
+    50px;
+  text-align: center;
+}
+.main-message {
+  font-size: 21px;
+  font-weight: 800;
+}
+.sub-message {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 15px;
+}
+/* ======================================================
+   FOOTER
+====================================================== */
+footer {
+  margin-top: auto;
+  border-top:
+    1px solid #dfe6ef;
+  background:
+    rgba(255,255,255,.96);
+  padding:
+    25px 20px
+    22px;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.footer-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding:
+    9px 17px;
+  border:
+    1px solid #dce4ee;
+  border-radius: 999px;
+  background: white;
+  color: #17233b;
+  font-size: 14px;
+  font-weight: 600;
+}
+.footer-admin {
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  padding: 0;
+}
+.copyright {
+  margin-top: 18px;
+  text-align: center;
+  color: #9099a8;
+  font-size: 12px;
+}
+/* ======================================================
+   MODAL
+====================================================== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  padding: 20px;
+  background:
+    rgba(19,29,45,.56);
+  align-items: center;
+  justify-content: center;
+}
+.modal.show {
+  display: flex;
+}
+.modal-box {
+  width:
+    min(
+      470px,
+      100%
+    );
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 26px;
+  background: white;
+  border-radius: 22px;
+  box-shadow:
+    0 22px 70px
+    rgba(0,0,0,.2);
+}
+.modal-large {
+  width:
+    min(
+      980px,
+      100%
+    );
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 23px;
+}
+.modal-title {
+  font-size: 22px;
+  font-weight: 900;
+}
+.close-button {
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: #777;
+  font-size: 27px;
+}
+/* ======================================================
+   FORM
+====================================================== */
+.field {
+  margin-bottom: 15px;
+}
+.field label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 800;
+}
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  padding:
+    12px 13px;
+  border:
+    1px solid #d7dee8;
+  border-radius: 11px;
+  outline: 0;
+  background: white;
+  font-size: 14px;
+}
+.field textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.checkbox-row input {
+  width: auto;
+}
+.button {
+  min-height: 42px;
+  padding:
+    10px 17px;
+  border: 0;
+  border-radius: 11px;
+  background: var(--blue);
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+}
+.button.secondary {
+  background: #eef2f7;
+  color: #39465a;
+}
+.button.danger {
+  background: #fff0ef;
+  color: var(--danger);
+}
+.button.full {
+  width: 100%;
+}
+/* ======================================================
+   ADMIN
+====================================================== */
+.admin-tabs {
+  display: flex;
+  overflow-x: auto;
+  gap: 4px;
+  margin-bottom: 24px;
+  border-bottom:
+    1px solid var(--border);
+}
+.admin-tab {
+  padding:
+    11px 15px;
+  border: 0;
+  background: transparent;
+  color: #788399;
+  font-size: 14px;
+  font-weight: 800;
+}
+.admin-tab.active {
+  color: var(--blue);
+  border-bottom:
+    3px solid var(--blue);
+}
+.admin-panel {
+  display: none;
+}
+.admin-panel.active {
+  display: block;
+}
+.admin-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.admin-card {
+  margin-bottom: 18px;
+  padding: 20px;
+  border:
+    1px solid var(--border);
+  border-radius: 16px;
+  background: #fbfcfe;
+}
+.admin-card-title {
+  margin-bottom: 16px;
+  font-size: 17px;
+  font-weight: 900;
+}
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+@media(max-width:780px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .keyword-area {
+    justify-content: center;
+  }
+  .school-side {
+    display: none;
+  }
+  .grade-section {
+    grid-template-columns: 1fr;
+  }
+}
+@media(max-width:560px) {
+  .hero,
+  .grade-section,
+  .notice-section {
+    width:
+      calc(100% - 28px);
+  }
+  .main-title {
+    font-size: 26px;
+  }
+  .profile-image,
+  .profile-placeholder,
+  .profile-bg {
+    width: 215px;
+    height: 215px;
+  }
+  .quote {
+    display: none;
+  }
+  .grade-card {
+    grid-template-columns:
+      66px
+      1fr
+      38px;
+    padding: 19px;
+  }
+  .grade-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 34px;
+  }
+  .grade-title {
+    font-size: 24px;
+  }
+  .grade-desc {
+    font-size: 13px;
+  }
+}
+#siteToast { position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:10000;
+  max-width:min(90vw,680px);padding:16px 22px;border-radius:16px;background:#17233b;color:#fff;
+  box-shadow:0 8px 30px #0003;white-space:pre-wrap; }
+#deleteDialog { border:0;border-radius:20px;padding:28px;max-width:90vw;margin:auto;color:var(--text); }
+#deleteDialog::backdrop {background:#17233b66;}
+</style>
+</head>
+<body>
+<div id="loading">
+  수업 교실을 불러오고 있습니다...
+</div>
+<div class="page">
+<main class="main">
+<!-- ======================================================
+     HERO
+====================================================== -->
+<section class="hero">
+  <div>
+    <div
+      class="eyebrow"
+      id="appName"
+    >
+      YULPO CLASS
+    </div>
+    <h1 class="main-title">
+      수석교사
+      <span id="teacherName">
+        박종필
+      </span>의
+      수업 교실
+    </h1>
+    <div
+      class="hero-description"
+      id="heroDescription"
+    >
+      함께 배우고, 만들고, 나누는 공간입니다.
+    </div>
+    <!-- KEYWORDS -->
+    <div class="keyword-area">
+      <div
+        class="tags"
+        id="keywordTags"
+      ></div>
+      <button
+        id="keywordEditButton"
+        class="keyword-edit-button"
+        onclick="openKeywordEditor()"
+        title="키워드 수정"
+        type="button"
+      >
+        ✏️
+      </button>
+    </div>
+  </div>
+  <!-- PROFILE -->
+  <div class="profile-area">
+    <div class="profile-bg"></div>
+    <div id="profileContainer"></div>
+    <div class="quote">
+“오늘도
+배움이 즐거운
+교실이 되기를
+응원합니다.”
+    </div>
+  </div>
+  <!-- SCHOOL -->
+  <div class="school-side">
+    <div class="school-slogan-wrap">
+      <div class="school-slogan-label">
+        우리 학교가 꿈꾸는 배움
+      </div>
+      <div class="school-slogan">
+        꿈을 향해<br>
+        함께 성장하는<br>
+        즐거운 배움터
+      </div>
+    </div>
+    <div
+      class="school-name"
+      id="schoolName"
+    >
+      율포초등학교
+    </div>
+  </div>
+</section>
+<!-- ======================================================
+     NOTICE
+====================================================== -->
+<section
+  class="notice-section"
+  id="noticeSection"
+  style="display:none;"
+>
+  <div class="notice-header">
+    <div class="notice-heading">
+      공지사항
+    </div>
+    <div class="notice-caption">
+      새로운 소식을 확인하세요
+    </div>
+  </div>
+  <div
+    class="notice-list"
+    id="noticeList"
+  ></div>
+</section>
+<!-- ======================================================
+     GRADE
+====================================================== -->
+<section
+  class="grade-section"
+  id="gradeSection"
+></section>
+<!-- ======================================================
+     MESSAGE
+====================================================== -->
+<section class="message-area">
+  <div class="main-message">
+    “ 작은 배움이 모여, 더 큰 세상을 만듭니다. ”
+  </div>
+  <div class="sub-message">
+    A better tomorrow with learning
+  </div>
+</section>
+</main>
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer>
+  <div class="footer-links">
+    <div
+      class="footer-pill"
+      id="footerTeacher"
+    >
+      수석교사 박종필
+    </div>
+    <div
+      class="footer-pill"
+      id="footerSchool"
+    >
+      율포초등학교
+    </div>
+    <a
+      class="footer-pill"
+      id="footerWebsite"
+      href="#"
+      target="_blank"
+    >
+      🌐 홈페이지
+    </a>
+    <button
+      class="footer-pill footer-admin"
+      onclick="openAdmin()"
+      title="관리자 로그인"
+      type="button"
+    >
+      ⚙
+    </button>
+  </div>
+  <div class="copyright">
+    © 2026 YULPO CLASS. All rights reserved.
+  </div>
+</footer>
+</div>
+<!-- ======================================================
+     LOGIN MODAL
+====================================================== -->
+<div
+  class="modal"
+  id="loginModal"
+>
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">
+        관리자 로그인
+      </div>
+      <button
+        class="close-button"
+        onclick="closeModal('loginModal')"
+        type="button"
+      >
+        ×
+      </button>
+    </div>
+    <form
+      onsubmit="loginAdmin(event)"
+    >
+      <div class="field">
+        <label>
+          관리자 비밀번호
+        </label>
+        <input
+          type="password"
+          id="adminPassword"
+          placeholder="비밀번호 입력"
+          autocomplete="current-password"
+          required
+        >
+      </div>
+      <button
+        class="button full"
+        type="submit"
+      >
+        로그인
+      </button>
+    </form>
+  </div>
+</div>
+<!-- ======================================================
+     ADMIN MODAL
+====================================================== -->
+<div
+  class="modal"
+  id="adminModal"
+>
+  <div class="modal-box modal-large">
+    <div class="modal-header">
+      <div class="modal-title">
+        ⚙ 관리자 페이지
+      </div>
+      <div>
+        <button
+          class="button secondary"
+          onclick="logoutAdmin()"
+          type="button"
+        >
+          로그아웃
+        </button>
+        <button
+          class="close-button"
+          onclick="closeModal('adminModal')"
+          type="button"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+    <div class="admin-tabs">
+      <button
+        class="admin-tab active"
+        onclick="showAdminTab('notices',this)"
+        type="button"
+      >
+        공지사항 관리
+      </button>
+      <button
+        class="admin-tab"
+        onclick="showAdminTab('links',this)"
+        type="button"
+      >
+        수업 링크 관리
+      </button>
+      <button
+        class="admin-tab"
+        onclick="showAdminTab('settings',this)"
+        type="button"
+      >
+        사이트 설정
+      </button>
+    </div>
+    <!-- NOTICE -->
+    <div
+      class="admin-panel active"
+      id="admin-notices"
+    >
+      <div class="admin-toolbar">
+        <strong>
+          공지사항 관리
+        </strong>
+        <button
+          class="button"
+          onclick="openNoticeEditor()"
+          type="button"
+        >
+          + 공지사항 추가
+        </button>
+      </div>
+      <div
+        id="adminNoticeList"
+      ></div>
+    </div>
+    <!-- LINKS -->
+    <div
+      class="admin-panel"
+      id="admin-links"
+    >
+      <div
+        id="adminMenuList"
+      ></div>
+    </div>
+    <!-- SETTINGS -->
+    <div
+      class="admin-panel"
+      id="admin-settings"
+    >
+      <form
+        onsubmit="saveSiteSettings(event)"
+      >
+        <div class="field">
+          <label>앱 이름</label>
+          <input
+            id="settingAppName"
+          >
+        </div>
+        <div class="field">
+          <label>교사 이름</label>
+          <input
+            id="settingTeacherName"
+          >
+        </div>
+        <div class="field">
+          <label>학교명</label>
+          <input
+            id="settingSchoolName"
+          >
+        </div>
+        <div class="field">
+          <label>첫 화면 설명</label>
+          <textarea
+            id="settingHeroDescription"
+          ></textarea>
+        </div>
+        <div class="field">
+          <label>프로필 이미지 URL</label>
+          <input
+            id="settingProfileImage"
+          >
+        </div>
+        <div class="field">
+          <label>홈페이지</label>
+          <input
+            id="settingWebsite"
+          >
+        </div>
+        <div class="field">
+          <label>키워드</label>
+          <textarea
+            id="settingKeyWord"
+            placeholder="스마트교육,AI·디지털교육,수업지원"
+          ></textarea>
+        </div>
+        <button
+          class="button"
+          type="submit"
+        >
+          사이트 설정 저장
+        </button>
+      </form>
+      <hr>
+      <div class="field">
+        <label>
+          새 관리자 비밀번호
+        </label>
+        <input
+          type="password"
+          id="newAdminPassword"
+        >
+      </div>
+      <button
+        class="button secondary"
+        onclick="changePassword()"
+        type="button"
+      >
+        비밀번호 변경
+      </button>
+    </div>
+  </div>
+</div>
+<!-- ======================================================
+     NOTICE EDITOR
+====================================================== -->
+<div
+  class="modal"
+  id="noticeEditorModal"
+>
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">
+        공지사항 편집
+      </div>
+      <button
+        class="close-button"
+        onclick="closeModal('noticeEditorModal')"
+        type="button"
+      >
+        ×
+      </button>
+    </div>
+    <form
+      onsubmit="saveNoticeForm(event)"
+    >
+      <input
+        type="hidden"
+        id="noticeId"
+      >
+      <input
+        type="hidden"
+        id="noticeCreatedAt"
+      >
+      <div class="field">
+        <label>제목</label>
+        <input
+          id="noticeTitle"
+          required
+        >
+      </div>
+      <div class="field">
+        <label>내용</label>
+        <textarea
+          id="noticeContent"
+        ></textarea>
+      </div>
+      <div class="field">
+        <label>링크 URL</label>
+        <input
+          id="noticeLinkUrl"
+        >
+      </div>
+      <div class="field">
+        <label>표시 순서</label>
+        <input
+          type="number"
+          id="noticeOrder"
+          value="1"
+        >
+      </div>
+      <div class="field checkbox-row">
+        <input
+          type="checkbox"
+          id="noticeVisible"
+          checked
+        >
+        <label>
+          공개
+        </label>
+      </div>
+      <div class="field checkbox-row">
+        <input
+          type="checkbox"
+          id="noticeIsNew"
+          checked
+        >
+        <label>
+          NEW 표시
+        </label>
+      </div>
+      <button
+        class="button full"
+        type="submit"
+      >
+        저장
+      </button>
+    </form>
+  </div>
+</div>
+<!-- ======================================================
+     KEYWORD EDITOR
+====================================================== -->
+<div
+  class="modal"
+  id="keywordEditorModal"
+>
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">
+        ✏️ 키워드 수정
+      </div>
+      <button
+        class="close-button"
+        onclick="closeModal('keywordEditorModal')"
+        type="button"
+      >
+        ×
+      </button>
+    </div>
+    <div class="field">
+      <label>
+        키워드
+      </label>
+      <textarea
+        id="keywordInput"
+        placeholder="스마트교육,AI·디지털교육,수업지원,교사교육,에듀테크"
+      ></textarea>
+      <div
+        style="
+          margin-top:7px;
+          color:#8995a9;
+          font-size:12px;
+        "
+      >
+        쉼표(,)로 구분해 주세요.
+      </div>
+    </div>
+    <button
+      class="button full"
+      onclick="saveKeywords()"
+      type="button"
+    >
+      저장
+    </button>
+  </div>
+</div>
+
+<script>
+'use strict';
+// GAS 기존 배포를 새 버전으로 수정하면 아래 주소를 그대로 사용할 수 있습니다.
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbxO1IGSL62WCBWE-7rMTd-ur0-AT5qikXC-gIJVTw2PqZTwFbjAMfU3lK-XGiPNJ3vjSw/exec';
+const rpcMethods = new Set(['getPublicData','adminLogin','adminLogout','getAdminData',
+  'saveSettings','changeAdminPassword','saveMenu','addMenu','deleteMenu','saveNotice','deleteNotice']);
+const bridgeState = { ready:null, peer:null, origin:null, channel:null, pending:new Map(), seq:0 };
+function initializeBridge() {
+  if (bridgeState.ready) return bridgeState.ready;
+  bridgeState.ready = new Promise((resolve, reject) => {
+    if (!/^https?:$/.test(location.protocol)) {
+      reject(new Error('이 파일은 GitHub Pages에 올린 뒤 접속해 주세요.')); return;
+    }
+    const nonce = new Uint8Array(24);
+    crypto.getRandomValues(nonce);
+    bridgeState.channel = Array.from(nonce, x => x.toString(16).padStart(2,'0')).join('');
+    const frame = document.createElement('iframe');
+    frame.title = '수업 교실 데이터 연결';
+    frame.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;border:0;left:-10px;';
+    frame.tabIndex = -1;
+    frame.setAttribute('aria-hidden','true');
+    const url = new URL(GAS_URL);
+    url.searchParams.set('bridge','1');
+    url.searchParams.set('parentOrigin',location.origin);
+    url.searchParams.set('channel',bridgeState.channel);
+    const timeout = setTimeout(() => {
+      window.removeEventListener('message', receive);
+      frame.remove();
+      reject(new Error('GAS 연결을 확인해 주세요. Code.gs의 GITHUB_ORIGINS, Bridge 파일, 새 버전 배포와 접근 권한을 확인한 뒤 새로고침해 주세요.'));
+    }, 45000);
+    function receive(event) {
+      const message = event.data;
+      const trusted = /^https:\/\/(?:[a-z0-9-]+[.-])?script\.googleusercontent\.com$/.test(event.origin) ||
+        event.origin === 'https://script.google.com';
+      if (!trusted || !message || message.app !== 'yulpo-class-bridge-v1' ||
+          message.channel !== bridgeState.channel) return;
+      if (message.type === 'ready' && !bridgeState.peer) {
+        bridgeState.peer = event.source;
+        bridgeState.origin = event.origin;
+        clearTimeout(timeout);
+        event.source.postMessage({app:message.app,channel:message.channel,type:'ack'},event.origin);
+        resolve();
+      }
+      if (event.source !== bridgeState.peer || event.origin !== bridgeState.origin || message.type !== 'result') return;
+      const entry = bridgeState.pending.get(message.id);
+      if (!entry) return;
+      clearTimeout(entry.timer);
+      bridgeState.pending.delete(message.id);
+      message.error ? entry.reject(new Error(message.error)) : entry.resolve(message.result);
+    }
+    window.addEventListener('message',receive);
+    frame.src = url.href;
+    document.body.appendChild(frame);
+  });
+  return bridgeState.ready;
+}
+async function gasRequest(method,args) {
+  if (!rpcMethods.has(method)) throw new Error('허용되지 않은 요청입니다.');
+  await initializeBridge();
+  return new Promise((resolve,reject) => {
+    const id = String(++bridgeState.seq);
+    const timer = setTimeout(() => {
+      bridgeState.pending.delete(id);
+      reject(new Error('응답 시간이 초과되었습니다. 저장 요청이었다면 다시 누르기 전에 화면을 새로고침하여 저장 여부를 확인해 주세요.'));
+    },60000);
+    bridgeState.pending.set(id,{resolve,reject,timer});
+    bridgeState.peer.postMessage({app:'yulpo-class-bridge-v1',channel:bridgeState.channel,
+      type:'call',id,method,args},bridgeState.origin);
+  });
+}
+// 기존 화면의 비동기 호출과 같은 사용법을 제공하지만 GAS 전역 객체를 사용하지 않습니다.
+function gasRun(success, failure) {
+  return new Proxy({}, {get(target,name) {
+    if (name === 'withSuccessHandler') return callback => gasRun(callback,failure);
+    if (name === 'withFailureHandler') return callback => gasRun(success,callback);
+    if (!rpcMethods.has(name)) return undefined;
+    return (...args) => gasRequest(name,args).then(
+      value => { if (success) success(value); },
+      error => { if (failure) failure(error); else showError(error); }
+    );
+  }});
+}
+let toastTimer;
+function showToast(message) {
+  const toast = document.getElementById('siteToast');
+  toast.textContent = String(message || '');
+  toast.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toast.hidden = true; }, 6500);
+}
+function askDelete(message) {
+  return new Promise(resolve => {
+    const dialog = document.getElementById('deleteDialog');
+    document.getElementById('deleteMessage').textContent = message;
+    const finish = event => {
+      event.preventDefault();
+      dialog.removeEventListener('close',onClose);
+      dialog.removeEventListener('cancel',onCancel);
+      dialog.close();
+      resolve(event.submitter && event.submitter.value === 'delete');
+    };
+    const onClose = () => { cleanup(); resolve(false); };
+    const onCancel = () => { cleanup(); resolve(false); };
+    const cleanup = () => {
+      dialog.querySelector('form').removeEventListener('submit',finish);
+      dialog.removeEventListener('close',onClose);
+      dialog.removeEventListener('cancel',onCancel);
+    };
+    dialog.querySelector('form').addEventListener('submit',finish,{once:true});
+    dialog.addEventListener('close',onClose,{once:true});
+    dialog.addEventListener('cancel',onCancel,{once:true});
+    dialog.showModal();
+  });
+}
+</script>
+
+<script>
+let publicData = {
+  settings: {},
+  menus: [],
+  notices: []
+};
+let adminData = {
+  settings: {},
+  menus: [],
+  notices: []
+};
+let adminToken =
+  sessionStorage.getItem(
+    'yulpoAdminToken'
+  ) || '';
+document.addEventListener(
+  'DOMContentLoaded',
+  loadPublicData
+);
+/* ======================================================
+   PUBLIC
+====================================================== */
+function loadPublicData() {
+  showLoading(true);
+  gasRun()
+    .withSuccessHandler(
+      data => {
+        publicData = data;
+        renderSite();
+        showLoading(false);
+      }
+    )
+    .withFailureHandler(
+      showError
+    )
+    .getPublicData();
+}
+/* ======================================================
+   SITE
+====================================================== */
+function renderSite() {
+  const s =
+    publicData.settings || {};
+  const appName =
+    String(
+      s.appName ||
+      'YULPO CLASS'
+    ).trim();
+  document.title =
+    appName;
+  document
+    .getElementById(
+      'appName'
+    )
+    .textContent =
+      appName;
+  const teacherName =
+    normalizeTeacherName(
+      s.teacherName ||
+      '박종필'
+    );
+  document
+    .getElementById(
+      'teacherName'
+    )
+    .textContent =
+      teacherName;
+  document
+    .getElementById(
+      'footerTeacher'
+    )
+    .textContent =
+      '수석교사 ' +
+      teacherName;
+  const schoolName =
+    s.schoolName ||
+    '율포초등학교';
+  document
+    .getElementById(
+      'schoolName'
+    )
+    .textContent =
+      schoolName;
+  document
+    .getElementById(
+      'footerSchool'
+    )
+    .textContent =
+      schoolName;
+  if (
+    s.heroDescription
+  ) {
+    document
+      .getElementById(
+        'heroDescription'
+      )
+      .textContent =
+        s.heroDescription;
+  }
+  renderKeywords(
+    s.keyWord || ''
+  );
+  renderProfile(
+    s.profileImage || ''
+  );
+  const website =
+    document.getElementById(
+      'footerWebsite'
+    );
+  if (
+    s.website
+  ) {
+    website.href =
+      s.website;
+    website.style.display =
+      'inline-flex';
+  } else {
+    website.style.display =
+      'none';
+  }
+  renderNotices(
+    publicData.notices || []
+  );
+  renderGradeCards(
+    publicData.menus || []
+  );
+}
+/* ======================================================
+   KEYWORDS
+====================================================== */
+function renderKeywords(
+  value
+) {
+  const box =
+    document.getElementById(
+      'keywordTags'
+    );
+  box.innerHTML = '';
+  const keywords =
+    String(
+      value || ''
+    )
+      .split(',')
+      .map(
+        item =>
+          item.trim()
+      )
+      .filter(Boolean);
+  keywords.forEach(
+    keyword => {
+      const tag =
+        document.createElement(
+          'div'
+        );
+      tag.className =
+        'tag';
+      tag.textContent =
+        keyword;
+      box.appendChild(
+        tag
+      );
+    }
+  );
+}
+function openKeywordEditor() {
+  const value =
+    (
+      adminData.settings &&
+      adminData.settings.keyWord
+    )
+    ||
+    (
+      publicData.settings &&
+      publicData.settings.keyWord
+    )
+    ||
+    '';
+  document
+    .getElementById(
+      'keywordInput'
+    )
+    .value =
+      value;
+  document
+    .getElementById(
+      'keywordEditorModal'
+    )
+    .classList
+    .add('show');
+}
+function saveKeywords() {
+  const value =
+    document
+      .getElementById(
+        'keywordInput'
+      )
+      .value
+      .trim();
+  showLoading(true);
+  gasRun()
+    .withSuccessHandler(
+      () => {
+        closeModal(
+          'keywordEditorModal'
+        );
+        refreshAll();
+      }
+    )
+    .withFailureHandler(
+      showError
+    )
+    .saveSettings(
+      adminToken,
+      {
+        keyWord: value
+      }
+    );
+}
+/* ======================================================
+   PROFILE
+====================================================== */
+function renderProfile(
+  imageUrl
+) {
+  const box =
+    document.getElementById(
+      'profileContainer'
+    );
+  if (
+    imageUrl
+  ) {
+    box.innerHTML = `
+      <img
+        class="profile-image"
+        src="${escapeAttr(
+          imageUrl
+        )}"
+        alt="프로필 이미지"
+      >
+    `;
+  } else {
+    box.innerHTML = `
+      <div class="profile-placeholder">
+        👨‍🏫
+      </div>
+    `;
+  }
+}
+/* ======================================================
+   NOTICE
+====================================================== */
+function renderNotices(
+  notices
+) {
+  const section =
+    document.getElementById(
+      'noticeSection'
+    );
+  const box =
+    document.getElementById(
+      'noticeList'
+    );
+  if (
+    !notices ||
+    !notices.length
+  ) {
+    section.style.display =
+      'none';
+    return;
+  }
+  section.style.display =
+    'block';
+  box.innerHTML =
+    '';
+  notices.forEach(
+    notice => {
+      const card =
+        document.createElement(
+          'div'
+        );
+      card.className =
+        'notice-card' +
+        (
+          notice.linkUrl
+          ? ' link'
+          : ''
+        );
+      const badge =
+        isTrue(
+          notice.isNew
+        )
+        ?
+        '<div class="notice-new">NEW</div>'
+        :
+        '';
+      card.innerHTML = `
+        <div class="notice-icon">
+          📢
+        </div>
+        <div>
+          <div class="notice-title">
+            ${escapeHtml(
+              notice.title || ''
+            )}
+          </div>
+          <div class="notice-content">
+            ${escapeHtml(
+              notice.content || ''
+            )}
+          </div>
+        </div>
+        ${badge}
+      `;
+      if (
+        notice.linkUrl
+      ) {
+        card.onclick =
+          () => {
+            window.open(
+              notice.linkUrl,
+              '_blank'
+            );
+          };
+      }
+      box.appendChild(
+        card
+      );
+    }
+  );
+}
+/* ======================================================
+   GRADE
+====================================================== */
+function renderGradeCards(
+  menus
+) {
+  const box =
+    document.getElementById(
+      'gradeSection'
+    );
+  box.innerHTML =
+    '';
+  menus.forEach(
+    (menu,index) => {
+      const card =
+        document.createElement(
+          'div'
+        );
+      const blue =
+        index % 2 === 0;
+      card.className =
+        'grade-card ' +
+        (
+          blue
+          ? 'blue-card'
+          : 'green-card'
+        );
+      card.innerHTML = `
+        <div class="grade-icon">
+          ${escapeHtml(
+            menu.icon || '📘'
+          )}
+        </div>
+        <div>
+          <div class="grade-eng">
+            ${getEnglishTitle(
+              menu.title
+            )}
+          </div>
+          <div class="grade-title">
+            ${escapeHtml(
+              menu.title || ''
+            )}
+          </div>
+          <div class="grade-desc">
+            ${escapeHtml(
+              menu.description || ''
+            )}
+          </div>
+        </div>
+        <div class="arrow">
+          →
+        </div>
+      `;
+      card.onclick =
+        () => {
+          if (
+            !menu.linkUrl
+          ) {
+            showToast(
+              '연결된 수업 주소가 없습니다.'
+            );
+            return;
+          }
+          if (
+            menu.openType ===
+            'same'
+          ) {
+            window.location.href =
+              menu.linkUrl;
+          } else {
+            window.open(
+              menu.linkUrl,
+              '_blank'
+            );
+          }
+        };
+      box.appendChild(
+        card
+      );
+    }
+  );
+}
+/* ======================================================
+   ADMIN
+====================================================== */
+function openAdmin() {
+  if (
+    adminToken
+  ) {
+    loadAdminData();
+    return;
+  }
+  document
+    .getElementById(
+      'loginModal'
+    )
+    .classList
+    .add('show');
+  setTimeout(
+    () => {
+      document
+        .getElementById(
+          'adminPassword'
+        )
+        .focus();
+    },
+    100
+  );
+}
+function loginAdmin(
+  event
+) {
+  event.preventDefault();
+  const password =
+    document
+      .getElementById(
+        'adminPassword'
+      )
+      .value;
+  showLoading(true);
+  gasRun()
+    .withSuccessHandler(
+      result => {
+        showLoading(false);
+        if (
+          !result.success
+        ) {
+          showToast(
+            result.message
+          );
+          return;
+        }
+        adminToken =
+          result.token;
+        sessionStorage
+          .setItem(
+            'yulpoAdminToken',
+            adminToken
+          );
+        document
+          .getElementById(
+            'adminPassword'
+          )
+          .value = '';
+        closeModal(
+          'loginModal'
+        );
+        loadAdminData();
+      }
+    )
+    .withFailureHandler(
+      showError
+    )
+    .adminLogin(
+      password
+    );
+}
+function loadAdminData() {
+  showLoading(true);
+  gasRun()
+    .withSuccessHandler(
+      data => {
+        adminData =
+          data;
+        renderAdminNotices();
+        renderAdminMenus();
+        renderSettings();
+        document
+          .getElementById(
+            'keywordEditButton'
+          )
+          .style.display =
+            'inline-flex';
+        showLoading(false);
+        document
+          .getElementById(
+            'adminModal'
+          )
+          .classList
+          .add('show');
+      }
+    )
+    .withFailureHandler(
+      error => {
+        showLoading(false);
+        adminToken = '';
+        sessionStorage
+          .removeItem(
+            'yulpoAdminToken'
+          );
+        document
+          .getElementById(
+            'keywordEditButton'
+          )
+          .style.display =
+            'none';
+        showToast(
+          '관리자 로그인이 만료되었습니다. 다시 로그인해 주세요.'
+        );
+        openAdmin();
+      }
+    )
+    .getAdminData(
+      adminToken
+    );
+}
+/* ======================================================
+   NOTICE ADMIN
+====================================================== */
+function renderAdminNotices() {
+  const box =
+    document.getElementById(
+      'adminNoticeList'
+    );
+  box.innerHTML =
+    '';
+  const notices =
+    adminData.notices ||
+    [];
+  notices.forEach(
+    notice => {
+      const div =
+        document.createElement(
+          'div'
+        );
+      div.className =
+        'admin-card';
+      div.innerHTML = `
+        <div class="admin-card-title">
+          ${escapeHtml(
+            notice.title || ''
+          )}
+        </div>
+        <div
+          style="
+            margin-bottom:14px;
+            color:#667085;
+          "
+        >
+          ${escapeHtml(
+            notice.content || ''
+          )}
+        </div>
+        <button
+          class="button secondary"
+          onclick="editNotice('${notice.id}')"
+          type="button"
+        >
+          수정
+        </button>
+        <button
+          class="button danger"
+          onclick="removeNotice('${notice.id}')"
+          type="button"
+        >
+          삭제
+        </button>
+      `;
+      box.appendChild(
+        div
+      );
+    }
+  );
+}
+function openNoticeEditor() {
+  setValue(
+    'noticeId',
+    ''
+  );
+  setValue(
+    'noticeCreatedAt',
+    ''
+  );
+  setValue(
+    'noticeTitle',
+    ''
+  );
+  setValue(
+    'noticeContent',
+    ''
+  );
+  setValue(
+    'noticeLinkUrl',
+    ''
+  );
+  document
+    .getElementById(
+      'noticeOrder'
+    )
+    .value =
+      (
+        adminData.notices ||
+        []
+      ).length + 1;
+  document
+    .getElementById(
+      'noticeVisible'
+    )
+    .checked =
+      true;
+  document
+    .getElementById(
+      'noticeIsNew'
+    )
+    .checked =
+      true;
+  document
+    .getElementById(
+      'noticeEditorModal'
+    )
+    .classList
+    .add('show');
+}
+function editNotice(
+  id
+) {
+  const notice =
+    adminData.notices
+      .find(
+        item =>
+          item.id === id
+      );
+  if (
+    !notice
+  ) {
+    return;
+  }
+  setValue(
+    'noticeId',
+    notice.id
+  );
+  setValue(
+    'noticeCreatedAt',
+    notice.createdAt
+  );
+  setValue(
+    'noticeTitle',
+    notice.title
+  );
+  setValue(
+    'noticeContent',
+    notice.content
+  );
+  setValue(
+    'noticeLinkUrl',
+    notice.linkUrl
+  );
+  document
+    .getElementById(
+      'noticeOrder'
+    )
+    .value =
+      notice.order || 1;
+  document
+    .getElementById(
+      'noticeVisible'
+    )
+    .checked =
+      isTrue(
+        notice.visible
+      );
+  document
+    .getElementById(
+      'noticeIsNew'
+    )
+    .checked =
+      isTrue(
+        notice.isNew
+      );
+  document
+    .getElementById(
+      'noticeEditorModal'
+    )
+    .classList
+    .add('show');
+}
+function saveNoticeForm(
+  event
+) {
+  event.preventDefault();
+  const notice = {
+    id:
+      getValue(
+        'noticeId'
+      ),
+    title:
+      getValue(
+        'noticeTitle'
+      ),
+    content:
+      getValue(
+        'noticeContent'
+      ),
+    linkUrl:
+      getValue(
+        'noticeLinkUrl'
+      ),
+    order:
+      document
+        .getElementById(
+          'noticeOrder'
+        )
+        .value,
+    visible:
+      document
+        .getElementById(
+          'noticeVisible'
+        )
+        .checked,
+    isNew:
+      document
+        .getElementById(
+          'noticeIsNew'
+        )
+        .checked,
+    createdAt:
+      getValue(
+        'noticeCreatedAt'
+      )
+  };
+  showLoading(true);
+  gasRun()
+    .withSuccessHandler(
+      () => {
+        closeModal(
+          'noticeEditorModal'
+        );
+        refreshAll();
+      }
+    )
+    .withFailureHandler(
+      showError
+    )
+    .saveNotice(
+      adminToken,
+      notice
+    );
+}
+async function removeNotice(id) {
+  if (!await askDelete('공지사항을 삭제하시겠습니까?')) return;
+  showLoading(true);
+  gasRun()
+    .withSuccessHandler(
+      refreshAll
+    )
+    .withFailureHandler(
+      showError
+    )
+    .deleteNotice(
+      adminToken,
+      id
+    );
+}
+/* ======================================================
+   MENU ADMIN
+====================================================== */
+function renderAdminMenus() {
+  const box =
+    document.getElementById(
+      'adminMenuList'
+    );
+  box.innerHTML =
+    '';
+  (
+    adminData.menus ||
+    []
+  )
+  .forEach(
+    menu => {
+      const div =
+        document.createElement(
+          'div'
+        );
+      div.className =
+        'admin-card';
+      div.innerHTML = `
+        <div class="admin-card-title">
+          ${escapeHtml(
+            menu.title || ''
+          )}
+        </div>
+        <div class="field">
+          <label>메뉴명</label>
+          <input
+            id="title_${menu.id}"
+            value="${escapeAttr(
+              menu.title || ''
+            )}"
+          >
+        </div>
+        <div class="field">
+          <label>설명</label>
+          <textarea
+            id="description_${menu.id}"
+          >${escapeHtml(
+            menu.description || ''
+          )}</textarea>
+        </div>
+        <div class="field">
+          <label>수업 링크</label>
+          <input
+            id="url_${menu.id}"
+            value="${escapeAttr(
+              menu.linkUrl || ''
+            )}"
+          >
+        </div>
+        <div class="field">
+          <label>링크 열기</label>
+          <select
+            id="open_${menu.id}"
+          >
+            <option
+              value="new"
+              ${
+                menu.openType !==
+                'same'
+                ? 'selected'
+                : ''
+              }
+            >
+              새 창
+            </option>
+            <option
+              value="same"
+              ${
+                menu.openType ===
+                'same'
+                ? 'selected'
+                : ''
+              }
+            >
+              현재 창
+            </option>
+          </select>
+        </div>
+        <button
+          class="button"
+          onclick="saveMenuFromAdmin('${menu.id}')"
+          type="button"
+        >
+          저장
+        </button>
+      `;
+      box.appendChild(
+        div
+      );
+    }
+  );
+}
+function saveMenuFromAdmin(
+  id
+) {
+  const original =
+    adminData.menus
+      .find(
+        item =>
+          item.id === id
+      );
+  if (
+    !original
+  ) {
+    return;
+  }
+  const menu = {
+    id: id,
+    title:
+      document
+        .getElementById(
+          'title_' + id
+        )
+        .value,
+    icon:
+      original.icon ||
+      '📘',
+    description:
+      document
+        .getElementById(
+          'description_' + id
+        )
+        .value,
+    linkUrl:
+      document
+        .getElementById(
+          'url_' + id
+        )
+        .value,
+    openType:
+      document
+        .getElementById(
+          'open_' + id
+        )
+        .value,
+    order:
+      original.order,
+    visible:
+      original.visible
+  };
+  showLoading(true);
+  gasRun()
+    .withSuccessHandler(
+      refreshAll
+    )
+    .withFailureHandler(
+      showError
+    )
+    .saveMenu(
+      adminToken,
+      menu
+    );
+}
+/* ======================================================
+   SETTINGS
+====================================================== */
+function renderSettings() {
+  const s =
+    adminData.settings ||
+    {};
+  setValue(
+    'settingAppName',
+    s.appName
+  );
+  setValue(
+    'settingTeacherName',
+    s.teacherName
+  );
+  setValue(
+    'settingSchoolName',
+    s.schoolName
+  );
+  setValue(
+    'settingHeroDescription',
+    s.heroDescription
+  );
+  setValue(
+    'settingProfileImage',
+    s.profileImage
+  );
+  setValue(
+    'settingWebsite',
+    s.website
+  );
+  setValue(
+    'settingKeyWord',
+    s.keyWord
+  );
+}
+function saveSiteSettings(
+  event
+) {
+  event.preventDefault();
+  const data = {
+    appName:
+      getValue(
+        'settingAppName'
+      ),
+    teacherName:
+      getValue(
+        'settingTeacherName'
+      ),
+    schoolName:
+      getValue(
+        'settingSchoolName'
+      ),
+    heroDescription:
+      getValue(
+        'settingHeroDescription'
+      ),
+    profileImage:
+      getValue(
+        'settingProfileImage'
+      ),
+    website:
+      getValue(
+        'settingWebsite'
+      ),
+    keyWord:
+      getValue(
+        'settingKeyWord'
+      )
+  };
+  showLoading(true);
+  gasRun()
+    .withSuccessHandler(
+      refreshAll
+    )
+    .withFailureHandler(
+      showError
+    )
+    .saveSettings(
+      adminToken,
+      data
+    );
+}
+/* ======================================================
+   PASSWORD
+====================================================== */
+function changePassword() {
+  const password =
+    getValue(
+      'newAdminPassword'
+    );
+  if (
+    !password
+  ) {
+    showToast(
+      '새 비밀번호를 입력해 주세요.'
+    );
+    return;
+  }
+  showLoading(true);
+  gasRun()
+    .withSuccessHandler(
+      result => {
+        showLoading(false);
+        setValue(
+          'newAdminPassword',
+          ''
+        );
+        showToast(
+          result.message
+        );
+      }
+    )
+    .withFailureHandler(
+      showError
+    )
+    .changeAdminPassword(
+      adminToken,
+      password
+    );
+}
+/* ======================================================
+   REFRESH
+====================================================== */
+function refreshAll() {
+  gasRun()
+    .withSuccessHandler(
+      admin => {
+        adminData =
+          admin;
+        renderAdminNotices();
+        renderAdminMenus();
+        renderSettings();
+        gasRun()
+          .withSuccessHandler(
+            data => {
+              publicData =
+                data;
+              renderSite();
+              showLoading(false);
+              showToast(
+                '저장되었습니다.'
+              );
+            }
+          )
+          .withFailureHandler(
+            showError
+          )
+          .getPublicData();
+      }
+    )
+    .withFailureHandler(
+      showError
+    )
+    .getAdminData(
+      adminToken
+    );
+}
+/* ======================================================
+   TAB
+====================================================== */
+function showAdminTab(
+  name,
+  button
+) {
+  document
+    .querySelectorAll(
+      '.admin-panel'
+    )
+    .forEach(
+      element => {
+        element
+          .classList
+          .remove('active');
+      }
+    );
+  document
+    .querySelectorAll(
+      '.admin-tab'
+    )
+    .forEach(
+      element => {
+        element
+          .classList
+          .remove('active');
+      }
+    );
+  document
+    .getElementById(
+      'admin-' + name
+    )
+    .classList
+    .add('active');
+  button
+    .classList
+    .add('active');
+}
+/* ======================================================
+   LOGOUT
+====================================================== */
+function logoutAdmin() {
+  const token =
+    adminToken;
+  adminToken =
+    '';
+  sessionStorage
+    .removeItem(
+      'yulpoAdminToken'
+    );
+  document
+    .getElementById(
+      'keywordEditButton'
+    )
+    .style.display =
+      'none';
+  closeModal(
+    'adminModal'
+  );
+  gasRun()
+    .adminLogout(
+      token
+    );
+}
+/* ======================================================
+   UTIL
+====================================================== */
+function normalizeTeacherName(
+  value
+) {
+  let name =
+    String(
+      value || ''
+    ).trim();
+  while (
+    name.startsWith(
+      '수석교사'
+    )
+  ) {
+    name =
+      name
+        .replace(
+          /^수석교사\s*/,
+          ''
+        )
+        .trim();
+  }
+  return (
+    name ||
+    '박종필'
+  );
+}
+function getEnglishTitle(
+  title
+) {
+  const text =
+    String(
+      title || ''
+    );
+  if (
+    text.includes(
+      '5학년'
+    )
+  ) {
+    return 'FIFTH GRADE';
+  }
+  if (
+    text.includes(
+      '6학년'
+    )
+  ) {
+    return 'SIXTH GRADE';
+  }
+  return 'CLASS';
+}
+function closeModal(
+  id
+) {
+  document
+    .getElementById(
+      id
+    )
+    .classList
+    .remove('show');
+}
+function showLoading(
+  show
+) {
+  document
+    .getElementById(
+      'loading'
+    )
+    .style.display =
+      show
+      ? 'flex'
+      : 'none';
+}
+function showError(
+  error
+) {
+  showLoading(false);
+  console.error(
+    error
+  );
+  showToast(
+    error &&
+    error.message
+      ? error.message
+      : '오류가 발생했습니다.'
+  );
+}
+function setValue(
+  id,
+  value
+) {
+  document
+    .getElementById(
+      id
+    )
+    .value =
+      value || '';
+}
+function getValue(
+  id
+) {
+  return document
+    .getElementById(
+      id
+    )
+    .value
+    .trim();
+}
+function isTrue(
+  value
+) {
+  return (
+    value === true
+    ||
+    String(
+      value
+    )
+      .toLowerCase()
+      === 'true'
+  );
+}
+function escapeHtml(
+  value
+) {
+  return String(
+    value || ''
+  )
+  .replace(
+    /&/g,
+    '&amp;'
+  )
+  .replace(
+    /</g,
+    '&lt;'
+  )
+  .replace(
+    />/g,
+    '&gt;'
+  )
+  .replace(
+    /"/g,
+    '&quot;'
+  )
+  .replace(
+    /'/g,
+    '&#039;'
+  );
+}
+function escapeAttr(
+  value
+) {
+  return escapeHtml(
+    value
+  );
+}
+</script>
+<div id="siteToast" role="status" aria-live="polite" hidden></div>
+<dialog id="deleteDialog" aria-labelledby="deleteMessage">
+  <form method="dialog">
+    <p id="deleteMessage"></p>
+    <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:24px">
+      <button class="button secondary" value="cancel" autofocus>취소</button>
+      <button class="button danger" value="delete">삭제</button>
+    </div>
+  </form>
+</dialog>
+</body>
+</html>
